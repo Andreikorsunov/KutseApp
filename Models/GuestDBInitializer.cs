@@ -7,7 +7,8 @@ using System.Data.Entity;
 
 namespace KutseApp.Models
 {
-    public class GuestDBInitializer : CreateDatabaseIfNotExists<GuestContext>
+    public class GuestDBInitializer : CreateDatabaseIfNotExists<GuestContext> 
+        //DropCreateDatabaseAlways<GuestContext>
     {
         protected override void Seed(GuestContext db)
         {

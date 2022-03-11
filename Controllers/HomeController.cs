@@ -27,7 +27,6 @@ namespace KutseApp.Controllers
             else if (DateTime.Now.Month == 11) { pidu = "Ennustamispäev kohvipaksu peal"; }
             else if (DateTime.Now.Month == 12) { pidu = "Vanaaasta õhtu"; }
 
-
             ViewBag.Message = "Ootan sind oma peole! " + pidu + " Palun tule kindlasti!";
 
             int hour = DateTime.Now.Hour;
@@ -39,8 +38,27 @@ namespace KutseApp.Controllers
             {
                 ViewBag.Greeting = hour < 20 ? "Tere õhtu" : "Tere päevast";
             }
-
             return View();
+        }
+        [HttpGet]
+        public ViewResult Ankeet()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ViewResult Ankeet(Guest guest)
+        {
+            E_mail(guest);
+            if (ModelState.IsValid)
+            {
+                db.Guests.Add(guest);
+                db.SaveChanges();
+                return View("Thanks", guest);
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpGet]
         public ActionResult Create()
@@ -91,24 +109,6 @@ namespace KutseApp.Controllers
             db.Entry(guest).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Guests");
-        }
-        public ViewResult Ankeet()
-        {
-            return View();
-        }
-        public ViewResult Ankeet(Guest guest)
-        {
-            E_mail(guest);
-            if (ModelState.IsValid)
-            {
-                db.Guests.Add(guest);
-                db.SaveChanges();
-                return View("Thanks", guest);
-            }
-            else
-            {
-                return View();
-            }
         }
         public void E_mail(Guest guest)
         {
