@@ -1,0 +1,24 @@
+﻿@model KutseApp.Models.Guest
+@{
+    ViewBag.Title = "Ankeet";
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <p>Sisesta oma nimi!:@Html.TextBoxFor(x => x.Name) </p>
+    <p>Sisesta oma email!:@Html.TextBoxFor(x => x.Email) </p>
+    <p>Sisesta oma phone number!:@Html.TextBoxFor(x => x.Phone) </p>
+
+    <p>
+        Sinu valik:
+        @Html.DropDownListFor(x => x.WillAttend,
+       new[]
+       {
+           new SelectListItem(){Text="Tulen kindlasti",Value=bool.TrueString },
+           new SelectListItem(){Text="Kahjuks ma ei saan",Value=bool.FalseString }
+       }, "Vali siit")
+
+
+    </p>
+    <input type="submit" value="Saada Vaastus" />
+}
