@@ -1,6 +1,7 @@
 ﻿using KutseApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -12,20 +13,87 @@ namespace KutseApp.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Ootan sind oma peole! Palun tule kindlasti";
+            string pidu = "";
+            if (DateTime.Now.Month == 1) { pidu = "Jõulud"; }
+            else if (DateTime.Now.Month == 2) { pidu = "Heast puhkus pidu"; }
+            else if (DateTime.Now.Month == 3) { pidu = "Naistepäev"; }
+            else if (DateTime.Now.Month == 4) { pidu = "Aprillinali"; }
+            else if (DateTime.Now.Month == 5) { pidu = "Võidupüha pidu"; }
+            else if (DateTime.Now.Month == 6) { pidu = "Lastekaitsepäev"; }
+            else if (DateTime.Now.Month == 7) { pidu = "Spordiajakirjaniku päev"; }
+            else if (DateTime.Now.Month == 8) { pidu = "Nostalgiline päev"; }
+            else if (DateTime.Now.Month == 9) { pidu = "Teadmiste päev"; }
+            else if (DateTime.Now.Month == 10) { pidu = "Ülemaailmne loomade päev"; }
+            else if (DateTime.Now.Month == 11) { pidu = "Ennustamispäev kohvipaksu peal"; }
+            else if (DateTime.Now.Month == 12) { pidu = "Vanaaasta õhtu"; }
+
+
+            ViewBag.Message = "Ootan sind oma peole! " + pidu + " Palun tule kindlasti!";
+
             int hour = DateTime.Now.Hour;
-            ViewBag.Greeting = hour < 12 ? "Tere hommikust!":"Tere päevast";
+            if (hour <= 16)
+            {
+                ViewBag.Greeting = hour < 10 ? "Tere hommikust" : "Tere päevast";
+            }
+            else if (hour > 16)
+            {
+                ViewBag.Greeting = hour < 20 ? "Tere õhtu" : "Tere päevast";
+            }
+
             return View();
         }
         [HttpGet]
-        public ViewResult Ankeet()
+        public ActionResult Create()
         {
             return View();
         }
-        public ActionResult About()
+        public ActionResult Create(Guest guest)
         {
-            ViewBag.Message = "Your application description page.";
-
+            db.Guests.Add(guest);
+            db.SaveChanges();
+            return RedirectToAction("Guests");
+        }
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            Guest g = db.Guests.Find(id);
+            if (g == null)
+            {
+                return HttpNotFound();
+            }
+            return View(g);
+        }
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Guest g = db.Guests.Find(id);
+            if (g == null)
+            {
+                return HttpNotFound();
+            }
+            db.Guests.Remove(g);
+            db.SaveChanges();
+            return RedirectToAction("Guests");
+        }
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            Guest g = db.Guests.Find(id);
+            if (g == null)
+            {
+                return HttpNotFound();
+            }
+            return View(g);
+        }
+        [HttpPost, ActionName("Edit")]
+        public ActionResult EditConfirmed(Guest guest)
+        {
+            db.Entry(guest).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Guests");
+        }
+        public ViewResult Ankeet()
+        {
             return View();
         }
         public ViewResult Ankeet(Guest guest)
@@ -35,7 +103,7 @@ namespace KutseApp.Controllers
             {
                 db.Guests.Add(guest);
                 db.SaveChanges();
-                return View("Thanks", guest); 
+                return View("Thanks", guest);
             }
             else
             {
@@ -43,7 +111,7 @@ namespace KutseApp.Controllers
             }
         }
         public void E_mail(Guest guest)
-        {   
+        {
             try
             {
                 WebMail.SmtpServer = "smpt.gmail.com";
@@ -56,7 +124,7 @@ namespace KutseApp.Controllers
                     "tuleb peole" : "ei tule peole"));
                 ViewBag.Message = "kiri on saatnud!";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 ViewBag.Message = "Mul on kahju! Ei saa kiri";
             }
