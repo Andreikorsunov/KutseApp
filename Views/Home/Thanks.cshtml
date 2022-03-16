@@ -1,7 +1,7 @@
 ﻿@model KutseApp.Models.Guest
 
 @{
-    ViewBag.Title = "Tänan!";
+    ViewBag.Title = "Thanks";
 }
 <div>
     <p> Tänan sind, @Model.Name</p>
@@ -9,12 +9,12 @@
 <div>
     @if (Model.WillAttend == true)
     {
-        @: Mul on väga hea meel, et tulet
+        @: Mul on väga hea meel, et tulete
         <p>
             <br>
             <img src="~/Images/nice.jpg" />
             <br>
-            @Html.ActionLink("Meeldetuletus", "Thanks", "Thanks", new { @class = "btn btn-primary" })
+            @Html.ActionLink("Meeldetuletus", "Index", "Aitäh", new { @class = "btn btn-primary" })
         </p>
     }
     else

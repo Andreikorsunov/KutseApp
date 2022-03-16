@@ -129,6 +129,10 @@ namespace KutseApp.Controllers
                 ViewBag.Message = "Mul on kahju! Ei saa kiri";
             }
         }
+        public void Thanks(Guest guest)
+        {
+            WebMail.Send(guest.Email, "Meeldetuletus ", guest.Name + " ära unusta. Pidu toimub 8.03.22! Sind ootavad väga" + ((guest.WillAttend ?? false) ? " tuleb peole: " : " ei tule peole "));
+        }
         GuestContext db = new GuestContext();
         [Authorize] // - сможет увидеть только авторизированный пользователь
         public ActionResult Guests()
