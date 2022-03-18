@@ -110,14 +110,13 @@ namespace KutseApp.Controllers
             db.SaveChanges();
             return RedirectToAction("Guests");
         }
-                PiduContext pd = new PiduContext();
+        PiduContext pd = new PiduContext();
         [Authorize]
         public ActionResult Pidus()
         {
             IEnumerable<Pidu> pidus = pd.Pidus;
             return View(pidus);
         }
-        //pidu
         public ActionResult Createp()
         {
             return View();
