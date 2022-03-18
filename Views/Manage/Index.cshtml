@@ -16,18 +16,18 @@
             [
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
+                @Html.ActionLink("Muuda salasõna", "ChangePassword")
             }
             else
             {
-                @Html.ActionLink("Create", "SetPassword")
+                @Html.ActionLink("Loo", "SetPassword")
             }
             ]
         </dd>
         <dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
+            @Html.ActionLink("Halda", "ManageLogins") ]
         </dd>
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
@@ -57,11 +57,11 @@
                 }
             </dd>
         *@
-        <dt>Two-Factor Authentication:</dt>
+        <dt>Kahe teguri autentimine:</dt>
         <dd>
             <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
+                Kahefaktorilise autentimise pakkujaid pole konfigureeritud. Vaata <a href="https://go.microsoft.com/fwlink/?LinkId=403804">see artikkel</a>
+                Lisateavet selle ASP.NET-i rakenduse seadistamise kohta kahefaktorilise autentimise toetamiseks.
             </p>
             @*@if (Model.TwoFactor)
                 {
