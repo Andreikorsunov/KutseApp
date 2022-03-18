@@ -179,6 +179,9 @@
     <Compile Include="Models\Guest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pidu.cs" />
+    <Compile Include="Models\PiduContext.cs" />
+    <Compile Include="Models\PiduDBInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

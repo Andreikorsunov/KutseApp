@@ -110,6 +110,66 @@ namespace KutseApp.Controllers
             db.SaveChanges();
             return RedirectToAction("Guests");
         }
+        PiduContext pd = new PiduContext();
+        [Authorize]
+        public ActionResult Pidus()
+        {
+            IEnumerable<Pidu> pidus = pd.Pidus;
+            return View(pidus);
+        }
+        //pidu
+        public ActionResult Createp()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Createp(Pidu pidu)
+        {
+            pd.Pidus.Add(pidu);
+            pd.SaveChanges();
+            return RedirectToAction("Pidus");
+        }
+
+        public ActionResult Deletep(int id)
+        {
+            Pidu p = pd.Pidus.Find(id);
+            if (p == null)
+            {
+                return HttpNotFound();
+            }
+            return View(p);
+        }
+        [HttpPost, ActionName("Deletep")]
+        public ActionResult DeleteConfirmedp(int id)
+        {
+            Pidu p = pd.Pidus.Find(id);
+            if (p == null)
+            {
+                return HttpNotFound();
+            }
+            pd.Pidus.Remove(p);
+            pd.SaveChanges();
+            return RedirectToAction("Pidus");
+        }
+
+        [HttpGet]
+        public ActionResult Editp(int? id)
+        {
+            Pidu p = pd.Pidus.Find(id);
+            if (p == null)
+            {
+                return HttpNotFound();
+            }
+            return View(p);
+        }
+        [HttpPost, ActionName("Editp")]
+        public ActionResult EditConfirmedp(Pidu p)
+        {
+            pd.Entry(p).State = System.Data.Entity.EntityState.Modified;
+            pd.SaveChanges();
+            return RedirectToAction("Pidus");
+        }
+
         public void E_mail(Guest guest)
         {
             try
