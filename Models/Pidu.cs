@@ -12,6 +12,6 @@ namespace KutseApp.Models
         [Required(ErrorMessage = "On vaja sisesta pidu nime!")]
         public string Name { get; set; }
         [Required(ErrorMessage = "On vaja sisesta kuupäev!")]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }

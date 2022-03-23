@@ -201,7 +201,7 @@ namespace KutseApp.Controllers
         }
         public void Thanks(Guest guest)
         {
-            WebMail.Send(guest.Email, "Meeldetuletus ", guest.Name + " ära unusta. Pidu toimub Sind ootavad väga" + ((guest.WillAttend ?? false) ? " tuleb peole: " : " ei tule peole "));
+            WebMail.Send(guest.Email, "Meeldetuletus ", guest.Name + " ära unusta. Sind ootavad " + ((guest.WillAttend ?? false) ? " tuleb peole: " : " ei tule peole "));
         }
         GuestContext db = new GuestContext();
         [Authorize] // - сможет увидеть только авторизированный пользователь
