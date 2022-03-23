@@ -292,6 +292,10 @@
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Views\Home\GuestsJah.cshtml" />
     <Content Include="Views\Home\GuestsEi.cshtml" />
+    <Content Include="Views\Home\Createp.cshtml" />
+    <Content Include="Views\Home\Deletep.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\Editp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
