@@ -40,6 +40,7 @@ namespace KutseApp.Controllers
             }
             return View();
         }
+        public static string email;
         [HttpGet]
         public ViewResult Ankeet()
         {
@@ -179,29 +180,33 @@ namespace KutseApp.Controllers
             pd.SaveChanges();
             return RedirectToAction("Pidus");
         }
-
         public void E_mail(Guest guest)
         {
             try
             {
-                WebMail.SmtpServer = "smpt.gmail.com";
+                WebMail.SmtpServer = "smtp.gmail.com";
                 WebMail.SmtpPort = 587;
                 WebMail.EnableSsl = true;
-                WebMail.UserName = "nikolai.grigorjev01@gmail.com";
-                WebMail.Password = "nkeei321";
-                WebMail.From = "programmeeriminemvc@gmail.com";
-                WebMail.Send("nikolai.grigorjev01@gmail.com", "Vastus kutsele", guest.Name + "vastus" + ((guest.WillAttend ?? false) ?
-                    "tuleb peole" : "ei tule peole"));
-                ViewBag.Message = "kiri on saatnud!";
+                WebMail.UserName = "programmeeriminetthk2@gmail.com";
+                WebMail.Password = "2.kuursus tarpv20";
+                WebMail.From = "programmeeriminetthk2@gmail.com";
+                WebMail.Send("programmeeriminetthk2@gmail.com", "Vastus kutsele ", guest.Name + " vastas" + ((guest.WillAttend ?? false) ? " tuleb peole: " : " ei tule peole "));
+                ViewBag.Message = "Kiri on saatnud";
             }
             catch (Exception)
             {
-                ViewBag.Message = "Mul on kahju! Ei saa kiri";
+                ViewBag.Message = "Mul on kahju! Ei saa kirja saada!";
             }
         }
-        public void Thanks(Guest guest)
+        public void Thanks2(string email)
         {
-            WebMail.Send(guest.Email, "Meeldetuletus ", guest.Name + " ära unusta. Sind ootavad " + ((guest.WillAttend ?? false) ? " tuleb peole: " : " ei tule peole "));
+            WebMail.SmtpServer = "smtp.gmail.com";
+            WebMail.SmtpPort = 587;
+            WebMail.EnableSsl = true;
+            WebMail.UserName = "programmeeriminetthk2@gmail.com";
+            WebMail.Password = "2.kuursus tarpv20";
+            WebMail.From = "programmeeriminetthk2@gmail.com";
+            WebMail.Send(email, "Meeldetuletus ", " Meeletame teile, et te tulete pidule");
         }
         GuestContext db = new GuestContext();
         [Authorize] // - сможет увидеть только авторизированный пользователь
