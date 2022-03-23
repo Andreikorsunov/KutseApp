@@ -110,6 +110,17 @@ namespace KutseApp.Controllers
             db.SaveChanges();
             return RedirectToAction("Guests");
         }
+        [Authorize]
+        public ActionResult GuestsJah()
+        {
+            IEnumerable<Guest> guest = db.Guests.Where(g => g.WillAttend == true);
+            return View(guest);
+        }
+        public ActionResult GuestsEi()
+        {
+            IEnumerable<Guest> guest = db.Guests.Where(g => g.WillAttend == false);
+            return View(guest);
+        }
         PiduContext pd = new PiduContext();
         [Authorize]
         public ActionResult Pidus()
@@ -190,7 +201,7 @@ namespace KutseApp.Controllers
         }
         public void Thanks(Guest guest)
         {
-            WebMail.Send(guest.Email, "Meeldetuletus ", guest.Name + " ära unusta. Pidu toimub 8.03.22! Sind ootavad väga" + ((guest.WillAttend ?? false) ? " tuleb peole: " : " ei tule peole "));
+            WebMail.Send(guest.Email, "Meeldetuletus ", guest.Name + " ära unusta. Pidu toimub Sind ootavad väga" + ((guest.WillAttend ?? false) ? " tuleb peole: " : " ei tule peole "));
         }
         GuestContext db = new GuestContext();
         [Authorize] // - сможет увидеть только авторизированный пользователь
